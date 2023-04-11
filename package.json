@@ -1,7 +1,7 @@
 {
   "name": "sprint5",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "server.ts",
   "author": "Felipe <felipe.silva@kenzie.com.br>",
   "license": "MIT",
   "scripts": {
