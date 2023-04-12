@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { AppError, handleError } from "../errors/appError";
-import userCreateService from "../services/users/userCreate.service";
+import { AppError, handleError } from "../../errors/appError";
+import userCreateService from "../../services/users/userCreate.service";
 
 const userCreateController = async (req: Request, res: Response) => {
   try {
