@@ -4,14 +4,18 @@ import userPatchService from "../../services/users/userPatch.service";
 
 const userPatchController = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const { name, email, password} = req.body
+    const { userId } = req.params;
+    const { name, email, password, isAdm, isActive, id} = req.body;
 
-    const user = await userPatchService({id, name, email, password});
+    if ( isAdm == false || isAdm == true || isActive == true || isActive == false || id ) {
+      return res.status(401).json({ message: "invalid input" });
+    }
 
-    if(user){
+    const user = await userPatchService({ userId, name, email, password });
+
+    if (user) {
       const { password, ...sendUser } = user;
-      return res.status(201).json(sendUser);
+      return res.status(200).json(sendUser);
     }
   } catch (error) {
     if (error instanceof AppError) {

@@ -6,22 +6,20 @@ import { IUserUpdate } from "../../interfaces/users";
 const bcrypt = require("bcrypt");
 
 const userPatchService = async ({
-  id,
+  userId,
   name,
   email,
   password,
 }: IUserUpdate) => {
-
+  
   const userRepository = AppDataSource.getRepository(User);
 
   const account = await userRepository.findOne({
-    where: { id },
+    where: { id: userId },
   });
 
   if (!account) {
-    throw new AppError(409, "account does not exist");
-  } else if (account.id !== id && account.isAdm == false) {
-    throw new AppError(401, "You dont have permission");
+    throw new AppError(404, "account does not exist");
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -34,11 +32,11 @@ const userPatchService = async ({
 
   await userRepository.save(userUpdater);
 
-  const result = await userRepository.findOne({
-    where: { id },
-  });
+  // const result = await userRepository.findOne({
+  //   where: { id:userId },
+  // });
 
-    return result;
+  return userUpdater;
 };
 
 export default userPatchService;

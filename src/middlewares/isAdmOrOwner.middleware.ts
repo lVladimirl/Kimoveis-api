@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { AppError, handleError } from "../errors/appError";
 import userListService from "../services/users/userList.service";
 
-export const isAdm = async (
+export const isAdmOrOwner = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -23,11 +23,11 @@ export const isAdm = async (
           throw new AppError(401, "Invalid Token");
         }
         const userEmail = decoded.email;
-        const isAdm = users.find(
-          (user) => user.email === userEmail && user.isAdm === true
+        const isAdmOrOwner = users.find(
+          (user) => user.email === userEmail && user.isAdm === true || user.email === userEmail && user.id === req.params.id
         );
-        if (!isAdm) {
-          throw new AppError(403, "You need to be an admin");
+        if (!isAdmOrOwner) {
+          throw new AppError(401, "You do not have permission");
         }
       }
     );
