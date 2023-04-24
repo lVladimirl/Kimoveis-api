@@ -26,3 +26,7 @@ export interface IUserUpdate {
     email?: string
     password?: string
 }
+
+export interface IUserDelete {
+    id: string
+}
