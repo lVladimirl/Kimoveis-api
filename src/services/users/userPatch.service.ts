@@ -32,10 +32,6 @@ const userPatchService = async ({
 
   await userRepository.save(userUpdater);
 
-  // const result = await userRepository.findOne({
-  //   where: { id:userId },
-  // });
-
   return userUpdater;
 };
 
