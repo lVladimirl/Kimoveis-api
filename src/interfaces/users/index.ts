@@ -21,7 +21,12 @@ export interface IUserLogin {
 }
 
 export interface IUserUpdate {
+    userId?: string
     name?: string
     email?: string
     password?: string
+}
+
+export interface IUserDelete {
+    id: string
 }
